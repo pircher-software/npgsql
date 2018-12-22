@@ -240,12 +240,15 @@ namespace Npgsql.TypeMapping
         {
             DatabaseInfo = databaseInfo;
             BindTypes();
-        }
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
         void BindTypes()
         {
+            // Prepare the registered type mappings for the DBMS currently in use.
+            DatabaseInfo?.AdaptTypeMappings(Mappings);
+
             foreach (var mapping in Mappings.Values)
-                BindType(mapping, _connector, false);
+                BindType(mapping, _connector, false);   
 
             // Enums
             var enumFactory = new UnmappedEnumTypeHandlerFactory(DefaultNameTranslator);
